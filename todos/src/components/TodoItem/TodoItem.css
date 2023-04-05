@@ -1,0 +1,31 @@
+.list-holder{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  width: 100%;
+}
+
+li button {
+  
+  background-color: white;
+  border: 0px;
+}/*# sourceMappingURL=TodoItem.css.map */
+
+.space-text{
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: calc(100% - 160px);
+}
+
+@media (max-width: 767px) {
+
+
+  .space-text{
+    margin-left: 125px;
+    margin-right: 152px;
+  }
+  
+}

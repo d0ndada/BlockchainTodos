@@ -1,6 +1,6 @@
 import { useState } from "react";
 import './TodoForm.css'
-// import SortOrder from "../SortButton/SortOrder";
+import SortOrder from "../SortButton/SortOrder";
 
 function TodoForm({ addTodo,SortByAlphabeticOrder  }) {
     const [inputValue, setInputValue] = useState("");
@@ -22,10 +22,10 @@ function TodoForm({ addTodo,SortByAlphabeticOrder  }) {
         <input type='text' placeholder="Add task..." 
        className="Form_field" value={inputValue} onChange={handleInputChange} />
         <button className="button" type="submit" onClick={handleSubmit}  >Add</button>
-        {/* <SortOrder SortByAlphabeticOrder={SortByAlphabeticOrder} /> */}
+        <SortOrder SortByAlphabeticOrder={SortByAlphabeticOrder} />
 
     </form>
     </div>
   )
 }
-export default TodoForm
+export default TodoForm;

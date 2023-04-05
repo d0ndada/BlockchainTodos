@@ -1,5 +1,5 @@
 import './App.css';
-import { Home } from '../Home/Home';
+import Home from '../Home/Home';
 import { ConnectMetamask } from '../Connect/ConnectMetamask';
 
 function App() {
