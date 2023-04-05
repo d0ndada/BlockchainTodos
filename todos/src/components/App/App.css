@@ -1,0 +1,24 @@
+.App {
+  text-align: center;
+}
+
+header {
+  height: 85px;
+  border: 1px solid green;
+}
+
+main {
+  min-height: 75vh;
+  border: 1px solid blue;
+}
+
+footer {
+  height: 95px;
+  border: 1px solid red;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
