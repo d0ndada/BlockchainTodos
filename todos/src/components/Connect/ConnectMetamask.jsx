@@ -16,10 +16,10 @@ export const ConnectMetamask = () => {
     const connectToMetamask = async () => {
         if (typeof window != "undefined" && typeof window.ethereum !="undefined") {
             try {
-                // window.web3 = new Web3(window.ethereum);
-                const accounts = await window.ethereum.request({
-                    method: "eth_requestAccounts",
-                })
+                
+                
+                const web3 = new Web3(window.ethereum);
+                const accounts = await web3.eth.requestAccounts();
                 const account = accounts[0];
                 console.log("Current account:", account);
                 setAccount(account);
@@ -36,7 +36,6 @@ export const ConnectMetamask = () => {
     const getCurrentAccount = async () => {
         if (typeof window != "undefined" && typeof window.ethereum !="undefined") {
             try {
-                // window.web3 = new Web3(window.ethereum);
                 const accounts = await window.ethereum.request({
                     method: "eth_accounts",
                 })
@@ -65,6 +64,7 @@ export const ConnectMetamask = () => {
             })
         } else {
             setAccount("")
+            setConnected(false)
             console.error('No Metamask detected')
         }
     };
@@ -72,7 +72,7 @@ export const ConnectMetamask = () => {
     
     return (
         <div>
-            {connected ? (
+            {account && connected ? (
                 <h4>{`inlogged ${account}`}</h4>
                
             ):(
