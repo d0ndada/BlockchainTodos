@@ -5,11 +5,9 @@ import Web3 from 'web3';
 
 export const ConnectMetamask = () => {
     const [account,setAccount] = useState();
-    const [contract, setContract] = useState();
-  const [persons, setPersons] = useState([]);
+    
 
-    const handleClick = () => {
-      const getAccount = async () => {  
+    const getAccounts = async () => {
         if(window.ethereum) {
             try {
                 await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -22,15 +20,13 @@ export const ConnectMetamask = () => {
         }catch (error) {
             console.error("User denied account access")
           }
-    }
-    if (account) return;
-    getAccounts();}
-    
-}
-
+          } else {
+            console.error('No Metamask detected')
+          }
+        };
   return (
     <div>
-        <button onClick={handleClick} >
+        <button onClick={getAccounts} >
             <h4>
                 <Icon icon="logos:metamask-icon" width="50" />
                 Connect with Metamask
