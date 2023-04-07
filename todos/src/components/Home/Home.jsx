@@ -1,56 +1,40 @@
-import TodoForm from "../TodoForm/TodoForm";
-import TodoList from "../Todolist/TodoList";
-import { v4 as uuidv4 } from 'uuid';
+import React,{useState} from 'react'
+import { ConnectMetamask } from '../Connect/ConnectMetamask';
+import TodoList from '../Todolist/TodoList';
+import Web3 from 'web3';
 
-
-import { useState, useEffect } from "react";
-
-function Home() {
-      const [todo, setTodo] = useState(JSON.parse(localStorage.getItem("todos") || "[]" ));
-
-      useEffect(() => {
-        localStorage.setItem("todos", JSON.stringify(todo));
-      },[todo])
-
-      const addTodo = (text,date) => {
-        const newTodo = { id: uuidv4(),text,favorite: false, completed: false, date: new Date()};
-        setTodo((prevTodo) => [...prevTodo,newTodo])
+export const Home = () => {
+    const [account, setAccount] = useState();
+    const [contract, setContract] = useState();
+    const [todos, setTodos] = useState([]);
+    const [connected, setConnected] = useState(false);
+    const getTodos = async (TodoContract) => {
+      console.log("getTodo function starts");
+      const indexCount = await TodoContract.methods.todoCount().call();
+      const temp = [];
+      for (let i = 1; i <= indexCount; i++) {
+        const todo = await TodoContract.methods.todos(i).call();
+        console.log(todo);
+        temp.push(todo);
       }
+      setTodos(temp);
+    };
+   
+    
     
 
-      const checkAndUnCheck = (id) => {
-        setTodo((prevTodo) => prevTodo.map((todo) =>
-        todo.id === id? {...todo, completed: !todo.completed } : todo
-        ))
-      }
-      
-      const toggleFavorite = (id) => {
-        setTodo((prevTodo) => prevTodo.map((todo) =>
-        todo.id === id? {...todo, favorite: !todo.favorite} : todo
-        ))
-      }
-   
-
-      const removeTodo = (id) => {
-        const shouldDelete = window.confirm('Are you sure you want to delete this todo?');
-        if (shouldDelete) {
-        setTodo((prevTodo) => 
-          prevTodo.filter((todo) => todo.id !== id))
-        }
-    }
-    const SortByAlphabeticOrder = () => {
-      setTodo(prevTodo => [...prevTodo].sort((a,b) => a.text.localeCompare(b.text)))
-    }
-
-
-
   return (
-    <div>
-      <header>TodoList</header> 
-      <TodoForm addTodo={addTodo}  SortByAlphabeticOrder={SortByAlphabeticOrder}  />
-      <TodoList todo={todo} checkAndUnCheck={checkAndUnCheck} toggleFavorite={toggleFavorite} removeTodo={removeTodo} id={todo.id}  />
-      
-    </div>
+    <>
+      <header className='wrapper'>
+        <p>Todo</p>
+        <ConnectMetamask account={account} setAccount={setAccount}  setContract={setContract} contract={contract} setTodos={setTodos} connected={connected} setConnected={setConnected} getTodos={getTodos} />
+      </header>
+      <main>
+        <TodoList account={account} setAccount={setAccount} setContract={setContract} contract={contract} todos={todos} connected={connected} setConnected={setConnected} getTodos={getTodos}   />
+      </main>
+      <footer className='wrapper'>
+        footer
+      </footer>
+    </>
   )
 }
-export default Home
