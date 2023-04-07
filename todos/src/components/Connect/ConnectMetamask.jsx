@@ -33,6 +33,7 @@ export const ConnectMetamask = ({ account, setAccount, setContract, contract, se
         setContract(TodoContract)  
         setAccount(account);
         setConnected(true);
+        localStorage.setItem('connected', 'true')
         await getTodos(TodoContract);
       } catch (error) {
         console.error("User denied account access");
@@ -44,6 +45,11 @@ export const ConnectMetamask = ({ account, setAccount, setContract, contract, se
 
   const getCurrentAccount = async () => {
     if (typeof window.ethereum !== "undefined") {
+      const storedConnectedState = localStorage.getItem('connected');
+
+      if(storedConnectedState == 'false') {
+        return;
+      }
         const web3 = new Web3(window.ethereum);
         const accounts = await web3.eth.getAccounts();
         if (accounts.length > 0) {
@@ -76,6 +82,16 @@ export const ConnectMetamask = ({ account, setAccount, setContract, contract, se
       console.error('No Metamask detected');
     }
   };
+  const clearTodos = () => {
+    setTodos([]);
+  };
+  const disconnectFromMetamask = () => {
+    setAccount(null);
+    setConnected(false);
+    clearTodos();
+    localStorage.setItem('connected', 'false')
+  };
+  
 
   
  
@@ -84,7 +100,10 @@ export const ConnectMetamask = ({ account, setAccount, setContract, contract, se
       {account && connected ? (<div>
         <p>{`inlogged ${account}`}</p>
       
-      
+        <button onClick={disconnectFromMetamask}>
+          <Icon icon="logos:metamask-icon" width="50" />
+          disconnect
+        </button>
         </div>
       ) : (
         <button onClick={connectToMetamask}>
