@@ -32,7 +32,7 @@ h3{
 }
 .favorite-box{
 
-    padding: 10px;
+    /* padding: 10px; */
     overflow-y: auto;
     height: 14rem;
     width: 480px;
