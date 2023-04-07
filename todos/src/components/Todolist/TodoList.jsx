@@ -1,47 +1,78 @@
-import TodoItem from "../TodoItem/TodoItem";
-import TodoCompleted from "../TodoCompleted/TodoCompleted";
-import Favorites from "../Favorites/Favorites";
+
 import './TodoList.css';
 
 
-function TodoList({ todo, removeTodo, checkAndUnCheck, toggleFavorite }) {
+function TodoList({todos, contract, setContract, account, connected, setConnected, getTodos}) {
+
+    const handleCheck = async (e) => {
+        console.log("klick")
+        const todoId = e.target.getAttribute('data-todoid')
+        if(connected && contract) {
+            try {
+                await contract.methods.toggleTodo(todoId).send({ from: account });
+                await getTodos();
+            } catch(error) {
+                console.error('Error toggling todo:', error)
+            }
+        }
+    }
     
- 
-    const todoList = todo.filter((todo => !todo.completed)).map((todo) => 
-         (
-            <TodoItem key={todo.id} todo={todo} id={todo.id} removeTodo={removeTodo} checkAndUnCheck={checkAndUnCheck} toggleFavorite={toggleFavorite}  />
-        
-    ))
-
-    const favoriteList = todo.filter((todo => todo.favorite)).map((todo) => (
-        <Favorites key={todo.id} todo={todo} id={todo.id}  toggleFavorite={toggleFavorite}    />
-    ))
-
-    const completedList = todo.filter((todo => todo.completed)).map((todo) => (
-            <TodoCompleted key={todo.id} todo={todo} id={todo.id} removeTodo={removeTodo} checkAndUnCheck={checkAndUnCheck} />
+    const showTodo = todos.filter((todo => !todo.completed)).map((todo) => {
+        return (
+            <li key={todo.id} className='list-holder' >
+                 <input type="checkbox" data-todoid={todo.id} checked={todo.completed} onChange={handleCheck} /> 
+                {/* <button /*onClick={handleFavoriteToggle}> */}
+                    {/* <span className='pointer' role="img" aria-label="star"> */}
+                    {/* ⭐️ */}
+                    {/* </span> */}
+                {/* </button> */}
+                <span className='space-text' >{todo.id} - {todo.text} -  {todo.completed.toString()}</span>                  
+                <button /*onClick={handleRemove}*/>
+                    <span className='pointer' role="img" aria-label="trashcan">
+                    🗑️ 
+                    </span>
+                </button>
+                
+            </li>
         )
-    )
-  
+    })
 
+    const doneTodos = todos.filter((todo => todo.completed)).map((todo) => {
+        return (
+            <li key={todo.id} className='list-holder' >
+                 <input type="checkbox" data-todoid={todo.id} checked={todo.completed} onChange={handleCheck} /> 
+                {/* <button /*onClick={handleFavoriteToggle}> */}
+                    {/* <span className='pointer' role="img" aria-label="star"> */}
+                    {/* ⭐️ */}
+                    {/* </span> */}
+                {/* </button> */}
+                <span className='space-text' >{todo.id} - {todo.text} -  {todo.completed.toString()}</span>                  
+                <button /*onClick={handleRemove}*/>
+                    <span className='pointer' role="img" aria-label="trashcan">
+                    🗑️ 
+                    </span>
+                </button>
+                
+            </li>
+        )
+    })
+   
+
+    
   return (
 
     <div className="Holder" > 
+    
         <div className="todo-box" >
             <h3>TODO</h3>
             <ul className="ul">
-        {todoList}
+                {account && connected ? showTodo: null}
         </ul>
         </div>
         <div className="completed-box"  >
             <h3>Completed</h3>
             <ul>
-            {completedList}
-            </ul>
-        </div>
-        <div className="favorite-box"  >
-            <h3>Favorites</h3>
-            <ul>
-            {favoriteList}
+                {doneTodos}
             </ul>
         </div>
         </div>
