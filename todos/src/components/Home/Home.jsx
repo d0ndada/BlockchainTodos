@@ -20,6 +20,16 @@ export const Home = () => {
       }
       setTodos(temp);
     };
+
+    const createTodo = async (newTodo) => {
+      await contract.methods.createTodo(newTodo.text)
+      .send({from: account })
+      .once("receipt",async (receipt) => {
+        console.log(receipt);
+
+        getTodos(contract);
+      })
+    }
    
     
     
@@ -30,11 +40,11 @@ export const Home = () => {
         <ConnectMetamask account={account} setAccount={setAccount}  setContract={setContract} contract={contract} setTodos={setTodos} connected={connected} setConnected={setConnected} getTodos={getTodos} />
       </header>
       <main>
-        <TodoForm />
+        <TodoForm addTodo={createTodo} getTodos={getTodos} account={account} setAccount={setAccount} setContract={setContract} contract={contract} todos={todos} connected={connected} setConnected={setConnected}  setTodos={setTodos} />
         <TodoList account={account} setAccount={setAccount} setContract={setContract} contract={contract} todos={todos} connected={connected} setConnected={setConnected} getTodos={getTodos} setTodos={setTodos}  />
       </main>
       <footer className='wrapper'>
-        footer
+      <p>&copy; 2023 d0ndada</p>
       </footer>
     </>
   )
