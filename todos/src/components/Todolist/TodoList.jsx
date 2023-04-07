@@ -2,25 +2,20 @@
 import './TodoList.css';
 
 
-function TodoList({todos, contract, setContract, account, connected, setConnected, getTodos}) {
+function TodoList({todos, contract, setContract, account, connected, setConnected, getTodos, setTodos}) {
 
-    const handleCheck = async (e) => {
-        console.log("klick")
-        const todoId = e.target.getAttribute('data-todoid')
-        if(connected && contract) {
-            try {
-                await contract.methods.toggleTodo(todoId).send({ from: account });
-                await getTodos();
-            } catch(error) {
-                console.error('Error toggling todo:', error)
-            }
-        }
+  
+    
+
+    const handleToggleCompleted = async (id) => {
+        await contract.methods.toggleTodo(id).send({ from: account });
+        setTodos(todos.map(todo => (todo.id == id ? {...todo,completed: !todo.completed} : todo)))
     }
     
     const showTodo = todos.filter((todo => !todo.completed)).map((todo) => {
         return (
             <li key={todo.id} className='list-holder' >
-                 <input type="checkbox" data-todoid={todo.id} checked={todo.completed} onChange={handleCheck} /> 
+                 <input type="checkbox"  checked={todo.completed} onChange={()=> handleToggleCompleted(todo.id)} /> 
                 {/* <button /*onClick={handleFavoriteToggle}> */}
                     {/* <span className='pointer' role="img" aria-label="star"> */}
                     {/* ⭐️ */}
@@ -40,7 +35,7 @@ function TodoList({todos, contract, setContract, account, connected, setConnecte
     const doneTodos = todos.filter((todo => todo.completed)).map((todo) => {
         return (
             <li key={todo.id} className='list-holder' >
-                 <input type="checkbox" data-todoid={todo.id} checked={todo.completed} onChange={handleCheck} /> 
+                 <input type="checkbox"  checked={todo.completed} onChange={()=> handleToggleCompleted(todo.id)} /> 
                 {/* <button /*onClick={handleFavoriteToggle}> */}
                     {/* <span className='pointer' role="img" aria-label="star"> */}
                     {/* ⭐️ */}
@@ -72,7 +67,7 @@ function TodoList({todos, contract, setContract, account, connected, setConnecte
         <div className="completed-box"  >
             <h3>Completed</h3>
             <ul>
-                {doneTodos}
+                {account && connected ? doneTodos: null}
             </ul>
         </div>
         </div>

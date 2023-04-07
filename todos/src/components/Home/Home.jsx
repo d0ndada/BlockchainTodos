@@ -30,7 +30,7 @@ export const Home = () => {
         <ConnectMetamask account={account} setAccount={setAccount}  setContract={setContract} contract={contract} setTodos={setTodos} connected={connected} setConnected={setConnected} getTodos={getTodos} />
       </header>
       <main>
-        <TodoList account={account} setAccount={setAccount} setContract={setContract} contract={contract} todos={todos} connected={connected} setConnected={setConnected} getTodos={getTodos}   />
+        <TodoList account={account} setAccount={setAccount} setContract={setContract} contract={contract} todos={todos} connected={connected} setConnected={setConnected} getTodos={getTodos} setTodos={setTodos}  />
       </main>
       <footer className='wrapper'>
         footer
