@@ -1,5 +1,12 @@
 .App {
   text-align: center;
+  
+  background-position: center center;
+  background-image: url('../../assets/paper-texture.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  
 }
 
 header {
@@ -10,6 +17,7 @@ header {
 main {
   min-height: 75vh;
   border: 1px solid blue;
+
 }
 
 footer {

@@ -1,21 +1,23 @@
 .Holder{
     display: inline-flex;    
-    
     justify-content: center;
     text-align: center;
-    box-shadow: 0px 2px 20px 7px rgba(0, 0, 0 , .1);
+    /* box-shadow: 0px 2px 20px 7px rgba(0, 0, 0 , .1); */
     border-radius: 28px;
-    max-height: 200px;
-    height: 200px;
+    max-height: 420px;
+    height: 420px;
    
 }
 
 h3{
     position: sticky;
     top: -10px;
-    background-color: white;
+    background-color: lightgrey;
     z-index: 4;
     border-radius: 14px;
+    box-shadow: 0px 2px 20px 7px rgba(0, 0, 0 , .1);
+    font-family:'Permanent Marker',cursive;
+
 }
 
 
@@ -29,6 +31,7 @@ h3{
     padding: 10px;
     width: 480px;
     overflow-y: auto;
+    
 }
 .favorite-box{
 
@@ -41,6 +44,7 @@ h3{
     box-shadow: 1px 0px 18px 7px rgba(0, 0, 0 , .1);
     max-height: 200px;
     border-radius: 22px;
+    
 
 }
 
@@ -68,3 +72,9 @@ Header {
       }
     
   }
+  .pointer {
+    cursor: pointer;
+    background-color: transparent;
+    border: 0px;
+  }
+  
