@@ -1,4 +1,6 @@
 
+import TodoItem from '../Todo/TodoItem';
+import TodoCompleted from '../TodoCompleted/TodoCompleted';
 import './TodoList.css';
 
 
@@ -9,46 +11,18 @@ function TodoList({todos, contract, setContract, account, connected, setConnecte
 
     const handleToggleCompleted = async (id) => {
         await contract.methods.toggleTodo(id).send({ from: account });
-        setTodos(todos.map(todo => (todo.id == id ? {...todo,completed: !todo.completed} : todo)))
+        setTodos(todos.map(todo => (todo.id === id ? {...todo,completed: !todo.completed} : todo)))
     }
     
     const showTodo = todos.filter((todo => !todo.completed)).map((todo) => {
         return (
-            <li key={todo.id} className='list-holder' >
-                 <input type="checkbox"  checked={todo.completed} onChange={()=> handleToggleCompleted(todo.id)} /> 
-                {/* <button /*onClick={handleFavoriteToggle}> */}
-                    {/* <span className='pointer' role="img" aria-label="star"> */}
-                    {/* ⭐️ */}
-                    {/* </span> */}
-                {/* </button> */}
-                <span className='space-text' >{todo.id} - {todo.text} -  {todo.completed.toString()}</span>                  
-                <button /*onClick={handleRemove}*/>
-                    <span className='pointer' role="img" aria-label="trashcan">
-                    🗑️ 
-                    </span>
-                </button>
-                
-            </li>
+            <TodoItem key={todo.id} handleToggleCompleted={handleToggleCompleted} todo={todo} id={todo.id} />
         )
     })
 
     const doneTodos = todos.filter((todo => todo.completed)).map((todo) => {
         return (
-            <li key={todo.id} className='list-holder' >
-                 <input type="checkbox"  checked={todo.completed} onChange={()=> handleToggleCompleted(todo.id)} /> 
-                {/* <button /*onClick={handleFavoriteToggle}> */}
-                    {/* <span className='pointer' role="img" aria-label="star"> */}
-                    {/* ⭐️ */}
-                    {/* </span> */}
-                {/* </button> */}
-                <span className='space-text' >{todo.id} - {todo.text} -  {todo.completed.toString()}</span>                  
-                <button /*onClick={handleRemove}*/>
-                    <span className='pointer' role="img" aria-label="trashcan">
-                    🗑️ 
-                    </span>
-                </button>
-                
-            </li>
+            <TodoCompleted key={todo.id} handleToggleCompleted={handleToggleCompleted} todo={todo} id={todo.id} />
         )
     })
    
@@ -59,13 +33,13 @@ function TodoList({todos, contract, setContract, account, connected, setConnecte
     <div className="Holder" > 
     
         <div className="todo-box" >
-            <h3>TODO</h3>
+            <h3>TO-DO:</h3>
             <ul className="ul">
                 {account && connected ? showTodo: null}
         </ul>
         </div>
         <div className="completed-box"  >
-            <h3>Completed</h3>
+            <h3>Completed:</h3>
             <ul>
                 {account && connected ? doneTodos: null}
             </ul>
