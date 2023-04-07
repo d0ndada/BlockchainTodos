@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import { ConnectMetamask } from '../Connect/ConnectMetamask';
 import TodoList from '../Todolist/TodoList';
 import Web3 from 'web3';
+import TodoForm from '../TodoForm/TodoForm';
 
 export const Home = () => {
     const [account, setAccount] = useState();
@@ -26,10 +27,10 @@ export const Home = () => {
   return (
     <>
       <header className='wrapper'>
-        <p>Todo</p>
         <ConnectMetamask account={account} setAccount={setAccount}  setContract={setContract} contract={contract} setTodos={setTodos} connected={connected} setConnected={setConnected} getTodos={getTodos} />
       </header>
       <main>
+        <TodoForm />
         <TodoList account={account} setAccount={setAccount} setContract={setContract} contract={contract} todos={todos} connected={connected} setConnected={setConnected} getTodos={getTodos} setTodos={setTodos}  />
       </main>
       <footer className='wrapper'>
