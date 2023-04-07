@@ -1,8 +1,8 @@
 
-export const PERSON_LIST_ADDRESS = "0xE01685f2d0A5610EEF8DD39648443CFD81Aa5A27";
+export const TODO_LIST_ADDRESS = "0xE01685f2d0A5610EEF8DD39648443CFD81Aa5A27";
 
 
-export const PERSON_LIST_ABI = [[
+export const TODO_LIST_ABI = [
     {
       "inputs": [],
       "stateMutability": "nonpayable",
@@ -147,5 +147,5 @@ export const PERSON_LIST_ABI = [[
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
-    }
-  ],];
+    },
+  ];
