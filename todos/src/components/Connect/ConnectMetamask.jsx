@@ -3,6 +3,7 @@ import { Icon } from '@iconify/react';
 import { useState, useEffect } from 'react';
 import Web3 from 'web3';
 import { TODO_LIST_ABI, TODO_LIST_ADDRESS } from "../../config";
+import './Connect.css'
 
 export const ConnectMetamask = ({ account, setAccount, setContract, contract, setTodos, connected, setConnected, getTodos }) => {
   
@@ -19,7 +20,7 @@ export const ConnectMetamask = ({ account, setAccount, setContract, contract, se
     if (typeof window.ethereum !== "undefined") {
       try {
         await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const web3 = new Web3("http://localhost:7545"); 
+        const web3 = new Web3(window.ethereum); // Changed to use window.ethereum
         const accounts = await web3.eth.getAccounts();
         const account = accounts[0];
         console.log("Current account:", account);
@@ -92,27 +93,34 @@ export const ConnectMetamask = ({ account, setAccount, setContract, contract, se
     localStorage.setItem('connected', 'false')
   };
   
-
+const getShortAddres = (address) => {
+  return address.slice(0,4) + "..." + address.slice(-3);
+}
   
  
   return (
+    <div className='header-container'>
+      <h2 className='title' >Todo</h2>
     <div>
-      {account && connected ? (<div>
-        <p>{`inlogged ${account}`}</p>
+      {account && connected ? (
+      <div className='account-info'>
+        <span className='account-address'>{getShortAddres(account)}</span>
       
-        <button onClick={disconnectFromMetamask}>
+        <button className='metamask-btn' onClick={disconnectFromMetamask}>
           <Icon icon="logos:metamask-icon" width="50" />
           disconnect
         </button>
         </div>
       ) : (
-        <button onClick={connectToMetamask}>
+        <div className='connect-btn'>
+        <button className='metamask-btn' onClick={connectToMetamask}>
           <Icon icon="logos:metamask-icon" width="50" />
           connnect
         </button>
+        </div>
       )}
     </div>
- 
+    </div>
 
 
   );
