@@ -9,6 +9,8 @@ export const Home = () => {
     const [contract, setContract] = useState();
     const [todos, setTodos] = useState([]);
     const [connected, setConnected] = useState(false);
+
+    
     const getTodos = async (TodoContract) => {
       console.log("getTodo function starts");
       const indexCount = await TodoContract.methods.todoCount().call();
@@ -16,7 +18,9 @@ export const Home = () => {
       for (let i = 1; i <= indexCount; i++) {
         const todo = await TodoContract.methods.todos(i).call();
         console.log(todo);
+        if (todo.text !== '' && todo.id !== '0') {
         temp.push(todo);
+        }
       }
       setTodos(temp);
     };
@@ -30,6 +34,16 @@ export const Home = () => {
         getTodos(contract);
       })
     }
+    const removeTodo = async (id) => {
+      await contract.methods
+      .removeTodo(id)
+      .send({ from:account })
+      .once("receipt", async (receipt) => {
+        console.log(receipt);
+        
+        getTodos(contract)
+      })
+    }
    
     
     
@@ -41,10 +55,10 @@ export const Home = () => {
       </header>
       <main>
         <TodoForm addTodo={createTodo} getTodos={getTodos} account={account} setAccount={setAccount} setContract={setContract} contract={contract} todos={todos} connected={connected} setConnected={setConnected}  setTodos={setTodos} />
-        <TodoList account={account} setAccount={setAccount} setContract={setContract} contract={contract} todos={todos} connected={connected} setConnected={setConnected} getTodos={getTodos} setTodos={setTodos}  />
+        <TodoList removeTodo={removeTodo} account={account} setAccount={setAccount} setContract={setContract} contract={contract} todos={todos} connected={connected} setConnected={setConnected} getTodos={getTodos} setTodos={setTodos}  />
       </main>
-      <footer className='wrapper'>
-      <p>&copy; 2023 d0ndada</p>
+      <footer className='wrapper '>
+      <p className='footer-text' >&copy; 2023 d0ndada</p>
       </footer>
     </>
   )
