@@ -3,12 +3,22 @@ import { Icon } from '@iconify/react';
 import { useState, useEffect } from 'react';
 import Web3 from 'web3';
 import { TODO_LIST_ABI, TODO_LIST_ADDRESS } from "../../config";
+import { useContext } from 'react';
+import { TodoContext } from '../../UseContext/Context';
 import './Connect.css'
 
-export const ConnectMetamask = ({ account, setAccount, setContract, contract, setTodos, connected, setConnected, getTodos }) => {
-  
-  
+export const ConnectMetamask = () => {
+  const { account, setAccount, setContract, setTodos, connected, setConnected, getTodos } = useContext(TodoContext);
 
+  const [isHovering, setIsHovering] = useState(false);
+  
+  const handleMouserEnter = () => {
+    setIsHovering(true);
+  }
+
+  const handleMouserLeave= () => {
+    setIsHovering(false);
+  }
   useEffect(() => {
     getCurrentAccount();
     addAccountListener();
@@ -104,18 +114,29 @@ const getShortAddres = (address) => {
     <div>
       {account && connected ? (
       <div className='account-info'>
-        <span className='account-address'>{getShortAddres(account)}</span>
+        <span className='account-tooltip'
+        onMouseEnter={handleMouserEnter}
+        onMouseLeave={handleMouserLeave}
+        >
+          {isHovering ? (<span className="full-address">{account}</span>):(<span className='short-address'>{getShortAddres(account)}</span>) }
+          
+          
+        </span>
       
         <button className='metamask-btn' onClick={disconnectFromMetamask}>
           <Icon icon="logos:metamask-icon" width="50" />
-          disconnect
-        </button>
+          <span className="material-symbols-outlined">
+logout
+</span>
+             </button>
         </div>
       ) : (
-        <div className='connect-btn'>
+        <div className='metamask-container'>
         <button className='metamask-btn' onClick={connectToMetamask}>
           <Icon icon="logos:metamask-icon" width="50" />
-          connnect
+          <span className="material-symbols-outlined">
+login
+</span>
         </button>
         </div>
       )}

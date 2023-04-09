@@ -1,16 +1,22 @@
 import { useState } from "react";
 import './TodoForm.css'
 import { NewTodo } from "../../models/todo";
-// import SortOrder from "../SortButton/SortOrder";
+import { useContext } from 'react';
+import { TodoContext } from '../../UseContext/Context';
 
-function TodoForm({ addTodo,SortByAlphabeticOrder  }) {
+function TodoForm() {
+  const { account,createTodo, connected } = useContext(TodoContext);
     const [newTodo, setNewTodo] = useState(new NewTodo(""));
 
     const handleSubmit = (e) => {
+      e.preventDefault();
+      if (newTodo.text.trim().length > 0){
         e.preventDefault();
         console.log(newTodo);
-          addTodo(newTodo)
-          
+          createTodo(newTodo)
+          setNewTodo(new NewTodo(""))
+          console.log(newTodo);
+          }
       
     }
     const handleChange = (e) => {
@@ -19,15 +25,23 @@ function TodoForm({ addTodo,SortByAlphabeticOrder  }) {
     }
     
     return (
-      <div>
+    
     <form className="Form" >
-        <input type='text' placeholder="Add task..." 
+      {account && connected ? <div className="container" >
+        <input type='text' placeholder="Add todo..." 
        className="Form_field" value={newTodo.text} onChange={handleChange} />
-        <button className="button" type="submit" onClick={handleSubmit}  >Add</button>
+        <button className="button" type="submit" onClick={handleSubmit}  >
+        <span className="material-symbols-outlined">
+list_alt_add
+</span>
+        </button>
+        </div>:<h4>To interact with this website pleas connect to metamask in the top right corner <span className="material-symbols-outlined arrow-animation">
+north_east
+</span></h4>}
         {/* <SortOrder SortByAlphabeticOrder={SortByAlphabeticOrder} /> */}
 
     </form>
-    </div>
+    
   )
 }
 export default TodoForm

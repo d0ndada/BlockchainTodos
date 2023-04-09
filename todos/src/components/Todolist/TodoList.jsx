@@ -1,10 +1,12 @@
-
 import TodoItem from '../Todo/TodoItem';
 import TodoCompleted from '../TodoCompleted/TodoCompleted';
 import './TodoList.css';
+import { useContext } from 'react';
+import { TodoContext } from '../../UseContext/Context';
 
 
-function TodoList({todos, contract, setContract, account, connected, setConnected, getTodos, setTodos}) {
+function TodoList() {
+    const { account, contract, setTodos, connected, todos, removeTodo } = useContext(TodoContext);
 
   
     
@@ -16,37 +18,49 @@ function TodoList({todos, contract, setContract, account, connected, setConnecte
     
     const showTodo = todos.filter((todo => !todo.completed)).map((todo) => {
         return (
-            <TodoItem key={todo.id} handleToggleCompleted={handleToggleCompleted} todo={todo} id={todo.id} />
+            <TodoItem key={todo.id} removeTodo={removeTodo} handleToggleCompleted={handleToggleCompleted} todo={todo} id={todo.id} />
         )
     })
 
     const doneTodos = todos.filter((todo => todo.completed)).map((todo) => {
         return (
-            <TodoCompleted key={todo.id} handleToggleCompleted={handleToggleCompleted} todo={todo} id={todo.id} />
+            <TodoCompleted key={todo.id} removeTodo={removeTodo} handleToggleCompleted={handleToggleCompleted} todo={todo} id={todo.id} />
         )
     })
    
+const noVisibleStyle= {
+    fontSize:"16rem",
+}
+
 
     
   return (
-
-    <div className="Holder" > 
-    
+<>
+{!account && !connected ?( <div className='not-visible'> 
+     <span style={noVisibleStyle} className="material-symbols-outlined">
+visibility_off
+</span>
+    </div>):(
+        <div className="Holder" >
+       
         <div className="todo-box" >
-            <h3>TO-DO:</h3>
+            {account && connected ? <h3>TO-DO:</h3>: null}
             <ul className="ul">
                 {account && connected ? showTodo: null}
         </ul>
         </div>
+    
         <div className="completed-box"  >
-            <h3>Completed:</h3>
+            {account && connected ? 
+            <h3>Completed:</h3>: null}
             <ul>
-                {account && connected ? doneTodos: null}
+            {account && connected ? doneTodos: null}
             </ul>
         </div>
         </div>
-        
     
+    ) }
+        </>
   )
 }
 export default TodoList

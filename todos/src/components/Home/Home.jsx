@@ -3,6 +3,7 @@ import { ConnectMetamask } from '../Connect/ConnectMetamask';
 import TodoList from '../Todolist/TodoList';
 import Web3 from 'web3';
 import TodoForm from '../TodoForm/TodoForm';
+import { TodoContext } from '../../UseContext/Context';
 
 export const Home = () => {
     const [account, setAccount] = useState();
@@ -49,17 +50,17 @@ export const Home = () => {
     
 
   return (
-    <>
+    <TodoContext.Provider value={{ account, setAccount, contract, setContract, todos, setTodos, connected, setConnected, getTodos, createTodo, removeTodo }}>
       <header className='wrapper'>
-        <ConnectMetamask account={account} setAccount={setAccount}  setContract={setContract} contract={contract} setTodos={setTodos} connected={connected} setConnected={setConnected} getTodos={getTodos} />
+        <ConnectMetamask />
       </header>
       <main>
-        <TodoForm addTodo={createTodo} getTodos={getTodos} account={account} setAccount={setAccount} setContract={setContract} contract={contract} todos={todos} connected={connected} setConnected={setConnected}  setTodos={setTodos} />
-        <TodoList removeTodo={removeTodo} account={account} setAccount={setAccount} setContract={setContract} contract={contract} todos={todos} connected={connected} setConnected={setConnected} getTodos={getTodos} setTodos={setTodos}  />
+        <TodoForm  />
+        <TodoList   />
       </main>
       <footer className='wrapper '>
       <p className='footer-text' >&copy; 2023 d0ndada</p>
       </footer>
-    </>
+    </TodoContext.Provider>
   )
 }
