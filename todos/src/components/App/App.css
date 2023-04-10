@@ -1,11 +1,10 @@
 .App {
   text-align: center;
-  
+  background-repeat: no-repeat;
   background-position: center center;
-  background-image: url('../../assets/paper-texture.jpg');
+  background-image: url('../../assets/paper.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  
+  min-height:100vh;
 }
-

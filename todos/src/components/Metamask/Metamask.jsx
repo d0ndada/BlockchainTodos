@@ -2,23 +2,15 @@ import React from 'react';
 import { Icon } from '@iconify/react';
 import { useState, useEffect } from 'react';
 import Web3 from 'web3';
-import { TODO_LIST_ABI, TODO_LIST_ADDRESS } from "../../config";
 import { useContext } from 'react';
 import { TodoContext } from '../../UseContext/Context';
 import './Metamask.css'
 
 export const Metamask = () => {
-  const { account, setAccount, setContract, setTodos, connected, setConnected, getTodos } = useContext(TodoContext);
+  const { account, setAccount, setContract, setTodos, connected, setConnected, getTodos,getCurrentAccount,connectToMetamask } = useContext(TodoContext);
 
   const [isHovering, setIsHovering] = useState(false);
   
-  const handleMouserEnter = () => {
-    setIsHovering(true);
-  }
-
-  const handleMouserLeave= () => {
-    setIsHovering(false);
-  }
   useEffect(() => {
     getCurrentAccount();
     addAccountListener();
@@ -26,61 +18,14 @@ export const Metamask = () => {
   }, []);
   
 
-  const connectToMetamask = async () => {
-    if (typeof window.ethereum !== "undefined") {
-      try {
-        await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const web3 = new Web3(window.ethereum); // Changed to use window.ethereum
-        const accounts = await web3.eth.getAccounts();
-        const account = accounts[0];
-        console.log("Current account:", account);
+  const handleMouserEnter = () => {
+    setIsHovering(true);
+  }
 
-
-        const TodoContract = new web3.eth.Contract(
-            TODO_LIST_ABI,
-            TODO_LIST_ADDRESS
-          );
-
-        setContract(TodoContract)  
-        setAccount(account);
-        setConnected(true);
-        localStorage.setItem('connected', 'true')
-        await getTodos(TodoContract);
-      } catch (error) {
-        console.error("User denied account access");
-      }
-    } else {
-      console.error('No Metamask detected');
-    }
-  };
-
-  const getCurrentAccount = async () => {
-    if (typeof window.ethereum !== "undefined") {
-      const storedConnectedState = localStorage.getItem('connected');
-
-      if(storedConnectedState == 'false') {
-        return;
-      }
-        const web3 = new Web3(window.ethereum);
-        const accounts = await web3.eth.getAccounts();
-        if (accounts.length > 0) {
-          const account = accounts[0];
-          console.log("Current account:", account);
-          const TodoContract = new web3.eth.Contract(
-            TODO_LIST_ABI,
-            TODO_LIST_ADDRESS
-          );
-
-        setContract(TodoContract)  
-          setAccount(account);
-          setConnected(true);
-          await getTodos(TodoContract);
-
-         
-    } 
-    }
-  };
-
+  const handleMouserLeave= () => {
+    setIsHovering(false);
+  }
+  
   const addAccountListener = async () => {
     if (typeof window !== "undefined" && typeof window.ethereum !== "undefined") {
       window.ethereum.on("accountsChanged", (accounts) => {
