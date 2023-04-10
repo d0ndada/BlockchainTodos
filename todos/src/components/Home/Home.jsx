@@ -1,9 +1,10 @@
 import React,{useState} from 'react'
-import { ConnectMetamask } from '../Connect/ConnectMetamask';
+import { Metamask } from '../Metamask/Metamask';
 import TodoList from '../Todolist/TodoList';
 import Web3 from 'web3';
 import TodoForm from '../TodoForm/TodoForm';
 import { TodoContext } from '../../UseContext/Context';
+import './Home.css'
 
 export const Home = () => {
     const [account, setAccount] = useState();
@@ -52,7 +53,7 @@ export const Home = () => {
   return (
     <TodoContext.Provider value={{ account, setAccount, contract, setContract, todos, setTodos, connected, setConnected, getTodos, createTodo, removeTodo }}>
       <header className='wrapper'>
-        <ConnectMetamask />
+        <Metamask />
       </header>
       <main>
         <TodoForm  />

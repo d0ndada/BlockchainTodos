@@ -5,9 +5,9 @@ import Web3 from 'web3';
 import { TODO_LIST_ABI, TODO_LIST_ADDRESS } from "../../config";
 import { useContext } from 'react';
 import { TodoContext } from '../../UseContext/Context';
-import './Connect.css'
+import './Metamask.css'
 
-export const ConnectMetamask = () => {
+export const Metamask = () => {
   const { account, setAccount, setContract, setTodos, connected, setConnected, getTodos } = useContext(TodoContext);
 
   const [isHovering, setIsHovering] = useState(false);

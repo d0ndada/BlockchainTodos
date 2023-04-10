@@ -1,24 +1,26 @@
 .TodoCompleted {
     
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
 }
 
 .completed-text{
-    text-decoration-line: line-through;
-    font-size: 28px;
-    font-family: 'Indie Flower',cursive;
+  text-decoration-line: line-through;
+  font-size: 28px;
+  font-family: 'Indie Flower',cursive;
+}
+.hidden-checkbox{
+display: none;
 }
 
 @media (max-width: 767px) {
 
 
-    .TodoCompleted{
-      
-      display: none;
-    }
+  .TodoCompleted{
     
+    display: none;
   }
   
+}
