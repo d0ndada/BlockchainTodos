@@ -43,11 +43,13 @@ function TodoForm() {
         <span className="material-symbols-outlined">
 list_alt_add
 </span>
+
         </button>
+        <SortOrder SortByAZ={SortByAlphabeticOrder} SortById={SortById}  />
+
         </div>:<h4>To interact with this website pleas connect to metamask in the top right corner <span className="material-symbols-outlined arrow-animation">
 north_east
 </span></h4>}
-        <SortOrder SortByAZ={SortByAlphabeticOrder} SortById={SortById}  />
 
     </form>
     

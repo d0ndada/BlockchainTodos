@@ -20,14 +20,9 @@ function SortOrder({ SortByAZ, SortById  }) {
 
 
   return ( 
-    <> {switchSort ? ( 
-      <button className='sortBtn' type='submit' onClick={handleClick} >sort id</button>
-    ): (
-      <button className='sortBtn' type='submit' onClick={handleClick} >Sort A-Z</button>
-    )}
-  
-    
-    </>
+    <button className='button' type='submit' onClick={handleClick}> 
+    {switchSort ? 'SortId' : 'Sort A-Z' }
+    </button>
   )
 }
 
