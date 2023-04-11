@@ -3,7 +3,7 @@ import { Metamask } from '../Metamask/Metamask';
 import TodoList from '../Todolist/TodoList';
 import Web3 from 'web3';
 import TodoForm from '../TodoForm/TodoForm';
-import { TodoContext } from '../../UseContext/Context';
+import { BlockchainContext } from '../../UseContext/blockchainContext';
 import { useBlockchain } from '../../useBlockchain/useBlockchain';
 import './Home.css'
 
@@ -11,7 +11,7 @@ export const Home = () => {
     const blockchain = useBlockchain()
 
   return (
-    <TodoContext.Provider value={blockchain}>
+    <BlockchainContext.Provider value={blockchain}>
       <header className='wrapper'>
         <Metamask />
       </header>
@@ -22,6 +22,6 @@ export const Home = () => {
       <footer className='wrapper '>
       <p className='footer-text' >&copy; 2023 d0ndada</p>
       </footer>
-    </TodoContext.Provider>
+    </BlockchainContext.Provider>
   )
 }

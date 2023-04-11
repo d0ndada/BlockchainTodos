@@ -3,11 +3,11 @@ import { Icon } from '@iconify/react';
 import { useState, useEffect } from 'react';
 import Web3 from 'web3';
 import { useContext } from 'react';
-import { TodoContext } from '../../UseContext/Context';
+import { BlockchainContext } from '../../UseContext/blockchainContext';
 import './Metamask.css'
 
 export const Metamask = () => {
-  const { account, setAccount, setContract, setTodos, connected, setConnected, getTodos,getCurrentAccount,connectToMetamask } = useContext(TodoContext);
+  const { account, setAccount, setContract, setTodos, connected, setConnected, getTodos,getCurrentAccount,connectToMetamask } = useContext(BlockchainContext);
 
   const [isHovering, setIsHovering] = useState(false);
   

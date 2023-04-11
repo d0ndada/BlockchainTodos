@@ -2,11 +2,11 @@ import TodoItem from '../Todo/TodoItem';
 import TodoCompleted from '../TodoCompleted/TodoCompleted';
 import './TodoList.css';
 import { useContext } from 'react';
-import { TodoContext } from '../../UseContext/Context';
+import { BlockchainContext } from '../../UseContext/blockchainContext';
 
 
 function TodoList() {
-    const { account, contract, setTodos, connected, todos, removeTodo } = useContext(TodoContext);
+    const { account, contract, setTodos, connected, todos, removeTodo } = useContext(BlockchainContext);
 
   
     
