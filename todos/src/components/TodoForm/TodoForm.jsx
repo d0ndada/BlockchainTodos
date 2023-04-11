@@ -2,10 +2,11 @@ import { useState } from "react";
 import './TodoForm.css'
 import { NewTodo } from "../../models/todo";
 import { useContext } from 'react';
-import { TodoContext } from '../../UseContext/Context';
+import { BlockchainContext } from '../../UseContext/blockchainContext';
+import SortOrder from "../SortButton/SortOrder";
 
 function TodoForm() {
-  const { account,createTodo, connected } = useContext(TodoContext);
+  const { account,createTodo, connected,setTodos } = useContext(BlockchainContext);
     const [newTodo, setNewTodo] = useState(new NewTodo(""));
 
     const handleSubmit = (e) => {
@@ -23,6 +24,14 @@ function TodoForm() {
       setNewTodo({...newTodo, text: e.target.value, })
       
     }
+    const SortByAlphabeticOrder = () => {
+      setTodos(prevTodo => [...prevTodo].sort((a,b) => a.text.localeCompare(b.text)))
+    }
+
+    const SortById = () => {
+      setTodos(prevTodo => [...prevTodo].sort((a,b) => parseInt(a.id) - parseInt(b.id)));
+    }
+
     
     return (
     
@@ -38,7 +47,7 @@ list_alt_add
         </div>:<h4>To interact with this website pleas connect to metamask in the top right corner <span className="material-symbols-outlined arrow-animation">
 north_east
 </span></h4>}
-        {/* <SortOrder SortByAlphabeticOrder={SortByAlphabeticOrder} /> */}
+        <SortOrder SortByAZ={SortByAlphabeticOrder} SortById={SortById}  />
 
     </form>
     
