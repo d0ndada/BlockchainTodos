@@ -83,7 +83,7 @@ export const useBlockchain = () => {
         if (typeof window.ethereum !== "undefined") {
           const storedConnectedState = localStorage.getItem('connected');
     
-          if(storedConnectedState == 'false') {
+          if(storedConnectedState === 'false') {
             return;
           }
             const web3 = new Web3(window.ethereum);
