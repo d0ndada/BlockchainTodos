@@ -1,0 +1,223 @@
+/* .Holder {
+  display: inline-flex;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 11px 3px 14px 14px rgba(0, 0, 0, 0.15);
+  background-color: transparent;
+  border-radius: 28px;
+  max-height: 360px;
+}
+
+.Holder2 {
+  display: inline-flex;
+  /* justify-content: center; */
+  /* text-align: center; */
+  /* box-shadow: 11px 3px 14px 14px rgba(0, 0, 0, 0.15); */
+  /* background-color: transparent; */
+  /* border-radius: 28px; */
+  /* max-height: 360px; */
+}
+h3 {
+  position: sticky;
+  top: -10px;
+  background-color: lightgrey;
+  z-index: 4;
+  border-radius: 14px;
+  box-shadow: 0px 2px 20px 7px rgba(0, 0, 0, 0.1);
+  font-family: "Permanent Marker", cursive;
+}
+
+.todo-box {
+  padding: 10px;
+  width: 480px;
+  overflow-y: auto;
+}
+
+.completed-box {
+  padding: 10px;
+  width: 480px;
+  overflow-y: auto;
+}
+.favorite-box {
+  /* padding: 10px; */
+  overflow-y: auto;
+  height: 14rem;
+  width: 480px;
+  position: absolute;
+  bottom: 8rem;
+  box-shadow: 1px 0px 18px 7px rgba(0, 0, 0, 0.1);
+  max-height: 200px;
+  border-radius: 22px;
+}
+
+.not-visible {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.visibility-icon {
+  font-size: 18rem;
+}
+.pointer {
+  cursor: pointer;
+  background-color: transparent;
+  border: 0px;
+}
+
+Header {
+  font-size: 2rem;
+}
+@media (max-width: 767px) {
+  /* styles for screens smaller than 767px */
+  .Holder {
+    flex-direction: column;
+    align-items: center;
+    width: 330px;
+  }
+
+  .item {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .favorite-box {
+    width: 300px;
+    max-width: 300px;
+  }
+}
+
+
+import TodoItem from "../Todo/TodoItem";
+import TodoCompleted from "../TodoCompleted/TodoCompleted";
+import "./TodoList.css";
+
+import {
+    useContext
+}
+
+from "react";
+
+import {
+    BlockchainContext
+}
+
+from "../../UseContext/blockchainContext";
+
+function TodoList() {
+    const {
+        account,
+        contract,
+        setTodos,
+        connected,
+        todos,
+        removeTodo
+    }
+
+    =useContext(BlockchainContext);
+
+    const handleToggleCompleted=async (id)=> {
+        await contract.methods.toggleTodo(id).send({
+            from: account
+        });
+
+    setTodos(todos.map((todo)=> todo.id===id ? {
+                ...todo, completed: !todo.completed
+            }
+
+            : todo));
+}
+
+;
+
+const showTodo=todos .filter((todo)=> !todo.completed) .map((todo)=> {
+        return (<TodoItem key= {
+                todo.id
+            }
+
+            removeTodo= {
+                removeTodo
+            }
+
+            handleToggleCompleted= {
+                handleToggleCompleted
+            }
+
+            todo= {
+                todo
+            }
+
+            id= {
+                todo.id
+            }
+
+            />);
+    });
+
+const doneTodos=todos .filter((todo)=> todo.completed) .map((todo)=> {
+        return (<TodoCompleted key= {
+                todo.id
+            }
+
+            removeTodo= {
+                removeTodo
+            }
+
+            handleToggleCompleted= {
+                handleToggleCompleted
+            }
+
+            todo= {
+                todo
+            }
+
+            id= {
+                todo.id
+            }
+
+            />);
+    });
+
+const noVisibleStyle= {
+    fontSize: "16rem",
+}
+
+;
+
+const hide=(<div className="not-visible" > <span style= {
+        noVisibleStyle
+    }
+
+    className="material-symbols-outlined" > visibility_off </span> </div>);
+
+return (<> {
+        !account && !connected ? (<div className="Holder2" > <div className="todo-box" > <h3>TO-DO:</h3> <ul className="ul" > {
+                account && connected ? showTodo : hide
+            }
+
+            </ul> </div> <div className="completed-box" > <h3>Completed:</h3> <ul> {
+                account && connected ? doneTodos : hide
+            }
+
+            </ul> </div> </div>) : (<div className="Holder" > <div className="todo-box" > {
+                account && connected ? <h3>TO-DO:</h3> : null
+            }
+
+            <ul className="ul" > {
+                account && connected ? showTodo : null
+            }
+
+            </ul> </div> <div className="completed-box" > {
+                account && connected ? <h3>Completed:</h3> : null
+            }
+
+            <ul> {
+                account && connected ? doneTodos : null
+            }
+
+            </ul> </div> </div>)
+    }
+
+    </>);
+}
+
+export default TodoList;
+ */

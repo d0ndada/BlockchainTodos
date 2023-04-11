@@ -1,33 +1,41 @@
-import React from 'react';
-import { Icon } from '@iconify/react';
-import { useState, useEffect } from 'react';
-import Web3 from 'web3';
-import { useContext } from 'react';
-import { BlockchainContext } from '../../UseContext/blockchainContext';
-import './Metamask.css'
+import React from "react";
+import { Icon } from "@iconify/react";
+import { useState, useEffect } from "react";
+import { useContext } from "react";
+import { BlockchainContext } from "../../UseContext/blockchainContext";
+import "./Metamask.css";
 
 export const Metamask = () => {
-  const { account, setAccount, setContract, setTodos, connected, setConnected, getTodos,getCurrentAccount,connectToMetamask } = useContext(BlockchainContext);
+  const {
+    account,
+    setAccount,
+    setTodos,
+    connected,
+    setConnected,
+    getCurrentAccount,
+    connectToMetamask,
+  } = useContext(BlockchainContext);
 
   const [isHovering, setIsHovering] = useState(false);
-  
+
   useEffect(() => {
     getCurrentAccount();
     addAccountListener();
-    
   }, []);
-  
 
   const handleMouserEnter = () => {
     setIsHovering(true);
-  }
+  };
 
-  const handleMouserLeave= () => {
+  const handleMouserLeave = () => {
     setIsHovering(false);
-  }
-  
+  };
+
   const addAccountListener = async () => {
-    if (typeof window !== "undefined" && typeof window.ethereum !== "undefined") {
+    if (
+      typeof window !== "undefined" &&
+      typeof window.ethereum !== "undefined"
+    ) {
       window.ethereum.on("accountsChanged", (accounts) => {
         setAccount(accounts[0]);
         console.log(accounts[0]);
@@ -35,7 +43,7 @@ export const Metamask = () => {
     } else {
       setAccount("");
       setConnected(false);
-      console.error('No Metamask detected');
+      console.error("No Metamask detected");
     }
   };
   const clearTodos = () => {
@@ -45,49 +53,45 @@ export const Metamask = () => {
     setAccount(null);
     setConnected(false);
     clearTodos();
-    localStorage.setItem('connected', 'false')
+    localStorage.setItem("connected", "false");
   };
-  
-const getShortAddres = (address) => {
-  return address.slice(0,4) + "..." + address.slice(-3);
-}
-  
- 
+
+  const getShortAddres = (address) => {
+    return address.slice(0, 4) + "..." + address.slice(-3);
+  };
+
   return (
-    <div className='header-container'>
-      <h2 className='title' >Todo</h2>
-    <div>
-      {account && connected ? (
-      <div className='account-info'>
-        <span className='account-tooltip'
-        onMouseEnter={handleMouserEnter}
-        onMouseLeave={handleMouserLeave}
-        >
-          {isHovering ? (<span className="full-address">{account}</span>):(<span className='short-address'>{getShortAddres(account)}</span>) }
-          
-          
-        </span>
-      
-        <button className='metamask-btn' onClick={disconnectFromMetamask}>
-          <Icon icon="logos:metamask-icon" width="50" />
-          <span className="material-symbols-outlined">
-logout
-</span>
-             </button>
-        </div>
-      ) : (
-        <div className='metamask-container'>
-        <button className='metamask-btn' onClick={connectToMetamask}>
-          <Icon icon="logos:metamask-icon" width="50" />
-          <span className="material-symbols-outlined">
-login
-</span>
-        </button>
-        </div>
-      )}
-    </div>
-    </div>
+    <div className="header-container">
+      <h2 className="title">Todo</h2>
+      <div>
+        {account && connected ? (
+          <div className="account-info">
+            <span
+              className="account-tooltip"
+              onMouseEnter={handleMouserEnter}
+              onMouseLeave={handleMouserLeave}
+            >
+              {isHovering ? (
+                <span className="full-address">{account}</span>
+              ) : (
+                <span className="short-address">{getShortAddres(account)}</span>
+              )}
+            </span>
 
-
+            <button className="metamask-btn" onClick={disconnectFromMetamask}>
+              <Icon icon="logos:metamask-icon" width="50" />
+              <span className="material-symbols-outlined">logout</span>
+            </button>
+          </div>
+        ) : (
+          <div className="metamask-container">
+            <button className="metamask-btn" onClick={connectToMetamask}>
+              <Icon icon="logos:metamask-icon" width="50" />
+              <span className="material-symbols-outlined">login</span>
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };

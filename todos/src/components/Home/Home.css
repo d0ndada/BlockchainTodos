@@ -1,21 +1,26 @@
 
 header {
     height: 14vh;
-    border: 1px solid green;
+    /* border: 1px solid green; */
   }
   
   main {
     min-height: 70vh;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
   
   }
   
   footer {
     height: 15vh;
-    border: 1px solid red;
+    /* border: 1px solid red; */
   }
-  
-  
+  .GithubLogo{
+    height: 47px;
+    
+  }
+  a{
+    margin-left: 1%;
+  }
   .wrapper {
     display: flex;
     justify-content: center;
