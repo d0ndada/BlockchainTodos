@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Metamask } from "../Metamask/Metamask";
 import TodoList from "../Todolist/TodoList";
 import TodoForm from "../TodoForm/TodoForm";
