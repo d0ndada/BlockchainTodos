@@ -37,6 +37,14 @@ export const useBlockchain = () => {
         getTodos(contract);
       });
   };
+  const handleToggleCompleted = async (id) => {
+    await contract.methods.toggleTodo(id).send({ from: account });
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  };
 
   const connectToMetamask = async () => {
     if (typeof window.ethereum !== "undefined") {
@@ -75,7 +83,6 @@ export const useBlockchain = () => {
       const accounts = await web3.eth.getAccounts();
       if (accounts.length > 0) {
         const account = accounts[0];
-        console.log("Current account:", account);
         const TodoContract = new web3.eth.Contract(
           TODO_LIST_ABI,
           TODO_LIST_ADDRESS
@@ -101,6 +108,7 @@ export const useBlockchain = () => {
     getTodos,
     createTodo,
     removeTodo,
+    handleToggleCompleted,
     getCurrentAccount,
     connectToMetamask,
   };

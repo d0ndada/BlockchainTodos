@@ -5,17 +5,15 @@ import { useContext } from "react";
 import { BlockchainContext } from "../../UseContext/blockchainContext";
 
 function TodoList() {
-  const { account, contract, setTodos, connected, todos, removeTodo } =
-    useContext(BlockchainContext);
-
-  const handleToggleCompleted = async (id) => {
-    await contract.methods.toggleTodo(id).send({ from: account });
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
-  };
+  const {
+    account,
+    contract,
+    setTodos,
+    connected,
+    todos,
+    removeTodo,
+    handleToggleCompleted,
+  } = useContext(BlockchainContext);
 
   const showTodo = todos
     .filter((todo) => !todo.completed)
