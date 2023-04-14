@@ -1,13 +1,11 @@
-import './App.css';
-import { Home } from '../Home/Home';
+import { AppWrapper } from "../styles/AppStyles";
+import { Home } from "../Home/Home";
 
 function App() {
-
   return (
-    <div className="App">
-     <Home />
-    </div>
+    <AppWrapper>
+      <Home />
+    </AppWrapper>
   );
 }
-
 export default App;

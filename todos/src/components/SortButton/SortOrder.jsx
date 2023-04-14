@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./SortOrder.css";
+import { SortButton } from "../styles/FormStyled";
 
 function SortOrder({ SortByAZ, SortById }) {
   const [switchSort, setSwitchSort] = useState(false);
@@ -18,13 +18,13 @@ function SortOrder({ SortByAZ, SortById }) {
   };
 
   return (
-    <button className="button" type="submit" onClick={handleClick}>
+    <SortButton onClick={handleClick}>
       {switchSort ? (
         <span className="material-symbols-outlined">sort</span>
       ) : (
         <span className="material-symbols-outlined">filter_list</span>
       )}
-    </button>
+    </SortButton>
   );
 }
 

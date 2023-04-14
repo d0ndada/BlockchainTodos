@@ -1,8 +1,14 @@
 import TodoItem from "../Todo/TodoItem";
 import TodoCompleted from "../TodoCompleted/TodoCompleted";
-import "./TodoList.css";
 import { useContext } from "react";
 import { BlockchainContext } from "../../UseContext/blockchainContext";
+import {
+  HolderWrapper,
+  ListTitle,
+  TodoContainer,
+  CompletedContainer,
+  NotVisibleContainer,
+} from "../styles/TodoList";
 
 function TodoList() {
   const { account, connected, todos, removeTodo, handleToggleCompleted } =
@@ -37,29 +43,29 @@ function TodoList() {
     });
 
   const noVisibleStyle = {
-    fontSize: "16rem",
+    fontSize: "17rem",
   };
 
   return (
     <>
       {!account && !connected ? (
-        <div className="not-visible">
+        <NotVisibleContainer>
           <span style={noVisibleStyle} className="material-symbols-outlined">
             visibility_off
           </span>
-        </div>
+        </NotVisibleContainer>
       ) : (
-        <div className="Holder">
-          <div className="todo-box">
-            {account && connected ? <h3>TO-DO:</h3> : null}
+        <HolderWrapper>
+          <TodoContainer>
+            {account && connected ? <ListTitle>TO-DO:</ListTitle> : null}
             <ul className="ul">{account && connected ? showTodo : null}</ul>
-          </div>
+          </TodoContainer>
 
-          <div className="completed-box">
-            {account && connected ? <h3>Completed:</h3> : null}
+          <CompletedContainer>
+            {account && connected ? <ListTitle>Completed:</ListTitle> : null}
             <ul>{account && connected ? doneTodos : null}</ul>
-          </div>
-        </div>
+          </CompletedContainer>
+        </HolderWrapper>
       )}
     </>
   );

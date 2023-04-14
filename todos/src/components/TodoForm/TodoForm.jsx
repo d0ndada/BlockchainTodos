@@ -1,9 +1,15 @@
 import { useState } from "react";
-import "./TodoForm.css";
 import { NewTodo } from "../../models/todo";
 import { useContext } from "react";
 import { BlockchainContext } from "../../UseContext/blockchainContext";
 import SortOrder from "../SortButton/SortOrder";
+import {
+  FormWrapper,
+  FormContainer,
+  Input,
+  SubmitButton,
+  ArrowSpan,
+} from "../styles/FormStyled";
 
 function TodoForm() {
   const { account, createTodo, connected, setTodos } =
@@ -34,31 +40,25 @@ function TodoForm() {
   };
 
   return (
-    <form className="Form">
+    <FormWrapper>
       {account && connected ? (
-        <div className="container">
-          <input
-            type="text"
-            placeholder="Add todo..."
-            className="Form_field"
-            value={newTodo.text}
-            onChange={handleChange}
-          />
-          <button className="button" type="submit" onClick={handleSubmit}>
+        <FormContainer>
+          <Input value={newTodo.text} onChange={handleChange} />
+          <SubmitButton onClick={handleSubmit}>
             <span className="material-symbols-outlined">list_alt_add</span>
-          </button>
+          </SubmitButton>
           <SortOrder SortByAZ={SortByAlphabeticOrder} SortById={SortById} />
-        </div>
+        </FormContainer>
       ) : (
         <h4>
           To interact with this website please connect your metamask wallet in
           the top right corner
-          <span className="material-symbols-outlined arrow-animation">
+          <ArrowSpan className="material-symbols-outlined">
             north_east
-          </span>
+          </ArrowSpan>
         </h4>
       )}
-    </form>
+    </FormWrapper>
   );
 }
 export default TodoForm;

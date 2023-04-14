@@ -3,31 +3,41 @@ import TodoList from "../Todolist/TodoList";
 import TodoForm from "../TodoForm/TodoForm";
 import { BlockchainContext } from "../../UseContext/blockchainContext";
 import { useBlockchain } from "../../useBlockchain/useBlockchain";
-import GithubLogo from "../../assets/github-mark.png";
-import "./Home.css";
+import {
+  Header,
+  Main,
+  Footer,
+  FooterText,
+  GithubLogo,
+  Link,
+} from "../styles/HomeStyles";
 
 export const Home = () => {
   const blockchain = useBlockchain();
 
   return (
     <BlockchainContext.Provider value={blockchain}>
-      <header className="wrapper">
+      <Header>
         <Metamask />
-      </header>
-      <main>
+      </Header>
+      <Main>
         <TodoForm />
         <TodoList />
-      </main>
-      <footer className="wrapper ">
-        <p className="footer-text">&copy; 2023 d0ndada </p>
-        <a
+      </Main>
+      <Footer>
+        <FooterText>&copy; 2023 d0ndada </FooterText>
+        <Link
           href="https://github.com/d0ndada"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img className="GithubLogo" alt="github" src={GithubLogo} />
-        </a>
-      </footer>
+          <GithubLogo
+            className="GithubLogo"
+            alt="github"
+            src={process.env.PUBLIC_URL + "/assets/github-mark.png"}
+          />
+        </Link>
+      </Footer>
     </BlockchainContext.Provider>
   );
 };
