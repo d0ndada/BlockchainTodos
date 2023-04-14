@@ -1,6 +1,4 @@
 
-The DApp should now be available at [http://localhost:3000](http://localhost:3000).
-
 ## Usage
 
 1. Start Ganache UI and create a workspace with the `truffle-config.js` file from this repository.
