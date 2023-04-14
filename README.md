@@ -1,1 +1,19 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=10757814&assignment_repo_type=AssignmentRepo)
+
+The DApp should now be available at [http://localhost:3000](http://localhost:3000).
+
+## Usage
+
+1. Start Ganache UI and create a workspace with the `truffle-config.js` file from this repository.
+
+2. Import the private key of the first account in Ganache UI to your MetaMask browser extension.
+
+3. Interact with the DApp using the browser at [http://localhost:3000](http://localhost:3000).
+
+## Contributing
+
+If you'd like to contribute to this project, please submit a pull request or open an issue.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
