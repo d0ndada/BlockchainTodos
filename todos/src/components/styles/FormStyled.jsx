@@ -42,14 +42,14 @@ const Button = styled.button`
   padding: 15px 17px;
   border-radius: 9px;
   outline-style: solid;
-  outline-width: 3px;
+  outline-width: 2px;
   outline-color: gray;
 
   &:hover {
     cursor: pointer;
     box-shadow: inset 1px -2px 14px 10px rgba(41, 35, 35, 0.1);
     outline-style: solid;
-    outline-width: 5px;
+    outline-width: 4px;
     outline-color: gray;
   }
   &:active {
@@ -90,18 +90,18 @@ export const SortButton = styled.button.attrs({
   border: 0;
   outline: 0;
   padding: 15px 17px;
-  margin-left: 8px;
+  margin-left: 5px;
   border-radius: 9px;
 
   outline-style: solid;
-  outline-width: 3px;
+  outline-width: 2px;
   outline-color: gray;
 
   &:hover {
     cursor: pointer;
     box-shadow: inset rgba(0, 0, 0, 0.1) 0px 1px 11px 3px;
     outline-style: solid;
-    outline-width: 5px;
+    outline-width: 4px;
     outline-color: gray;
   }
 

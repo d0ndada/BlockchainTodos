@@ -3,7 +3,15 @@ import { Icon } from "@iconify/react";
 import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { BlockchainContext } from "../../UseContext/blockchainContext";
-import "./Metamask.css";
+import {
+  AccountInfo,
+  HeaderContainer,
+  HeaderTitle,
+  FullAddress,
+  ShortAddress,
+  MetamaskButton,
+  MetamaskContainer,
+} from "../styles/HeaderStyles";
 
 export const Metamask = () => {
   const {
@@ -61,37 +69,36 @@ export const Metamask = () => {
   };
 
   return (
-    <div className="header-container">
-      <h2 className="title">Todo</h2>
-      <div>
+    <HeaderContainer>
+      <HeaderTitle>Todo</HeaderTitle>
+      <>
         {account && connected ? (
-          <div className="account-info">
+          <AccountInfo>
             <span
-              className="account-tooltip"
               onMouseEnter={handleMouserEnter}
               onMouseLeave={handleMouserLeave}
             >
               {isHovering ? (
-                <span className="full-address">{account}</span>
+                <FullAddress>{account}</FullAddress>
               ) : (
-                <span className="short-address">{getShortAddres(account)}</span>
+                <ShortAddress>{getShortAddres(account)}</ShortAddress>
               )}
             </span>
 
-            <button className="metamask-btn" onClick={disconnectFromMetamask}>
+            <MetamaskButton onClick={disconnectFromMetamask}>
               <Icon icon="logos:metamask-icon" width="50" />
               <span className="material-symbols-outlined">logout</span>
-            </button>
-          </div>
+            </MetamaskButton>
+          </AccountInfo>
         ) : (
-          <div className="metamask-container">
-            <button className="metamask-btn" onClick={connectToMetamask}>
+          <MetamaskContainer>
+            <MetamaskButton onClick={connectToMetamask}>
               <Icon icon="logos:metamask-icon" width="50" />
               <span className="material-symbols-outlined">login</span>
-            </button>
-          </div>
+            </MetamaskButton>
+          </MetamaskContainer>
         )}
-      </div>
-    </div>
+      </>
+    </HeaderContainer>
   );
 };
