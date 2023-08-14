@@ -1,7 +1,7 @@
 # Blockchain-based TODO List with Ganache
 A decentralized application (DApp) that provides a simple TODO list, backed by Ethereum smart contracts. This DApp communicates with a smart contract deployed on a local blockchain managed by Ganache.
 
-![Screenshot of the Todo DApp](./public/Todo.png)
+![Screenshot of the Todo DApp](././todos/public/Todo.png)
 
 ## 🛠 Prerequisites
 Ganache - Personal blockchain for Ethereum development
@@ -17,7 +17,6 @@ Navigate to the repo's root:
 bash
 ```
 truffle migrate --reset
-
 ```
 This deploys the smart contract to the local Ganache blockchain.
 
