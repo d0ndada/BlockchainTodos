@@ -1,17 +1,45 @@
+# Blockchain-based TODO List with Ganache
+A decentralized application (DApp) that provides a simple TODO list, backed by Ethereum smart contracts. This DApp communicates with a smart contract deployed on a local blockchain managed by Ganache.
 
-## Usage
+![Screenshot of the Todo DApp](./public/Todo.png)
 
-1. Start Ganache UI and create a workspace with the `truffle-config.js` file from this repository.
+## 🛠 Prerequisites
+Ganache - Personal blockchain for Ethereum development
+Metamask - Crypto wallet & gateway to blockchain apps
+Node.js - JavaScript runtime
+## 🚀 Getting Started
+1. Setup Ganache
+Launch Ganache and initiate a local blockchain. Remember your RPC server details.
 
-2. Import the private key of the first account in Ganache UI to your MetaMask browser extension.
+2. Deploy the Smart Contract
+Navigate to the repo's root:
 
-3. Interact with the DApp using the browser at [http://localhost:3000](http://localhost:3000).
+bash
+```
+truffle migrate --reset
 
-## Contributing
+```
+This deploys the smart contract to the local Ganache blockchain.
 
-If you'd like to contribute to this project, please submit a pull request or open an issue.
+1. Update ABI and Contract Address
+Post-deployment, make sure to update TODO_LIST_ABI and TODO_LIST_ADDRESS with the new contract's ABI and address respectively.
 
-## License
+1. Setup Metamask
+Install and launch MetaMask.
+Connect it to your local Ganache blockchain using Ganache's RPC URL.
+Import a Ganache account into MetaMask with the account's private key.
+1. Running the DApp
+bash
+```
+cd todo
+npm install
+npm start
+```
+Open a browser, access the application, connect via MetaMask, and manage your TODOs!
 
-This project is licensed under the [MIT License](LICENSE).
-
+## 🔄 Usage
+Add TODOs: Use the input field.
+Mark TODOs: Check as completed.
+Remove TODOs: Delete as required.
+# 🤝 Contributing
+Contributions are welcome! Please see our contributing guidelines for more details.
